@@ -25,7 +25,6 @@ export default function Modal({
           backgroundColor: '#282828',
           padding: 10,
           color: 'white',
-          fontFamily: 'Montserrat',
         }}
       >
         {title}
@@ -41,17 +40,17 @@ export default function Modal({
           color: 'white',
         }}
       >
-        <DialogContentText style={{ color: 'white', fontFamily: 'Montserrat' }}>
+        <DialogContentText style={{ color: 'white' }}>
           {overview}
         </DialogContentText>
         <hr />
-        <DialogContentText style={{ color: 'white', fontFamily: 'Montserrat' }}>
+        <DialogContentText style={{ color: 'white' }}>
           Release: {release}
         </DialogContentText>
         <Stack style={{ alignItems: 'center' }} spacing={1}>
           <Rating name="size-medium" defaultValue={rating} max={10} readOnly />
         </Stack>
-        <DialogContentText style={{ color: 'white', fontFamily: 'Montserrat' }}>
+        <DialogContentText style={{ color: 'white' }}>
           {rating}
         </DialogContentText>
       </DialogContent>
@@ -64,12 +63,10 @@ export default function Modal({
         <Button
           style={{
             color: 'black',
-            fontFamily: 'Montserrat',
             backgroundColor: '#fff9',
             margin: 8,
           }}
           onClick={onClose}
-          autoFocus
         >
           Back
         </Button>

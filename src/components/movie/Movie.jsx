@@ -62,7 +62,7 @@ export default function Movie({
               {rating}
             </Typography>
             <Typography gutterBottom variant="h8" component="div">
-              Votation: {votes}
+              Vote: {votes}
             </Typography>
           </CardContent>
         </div>

@@ -1,123 +1,95 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Header } from './components/header/Header';
 import Movie from './components/movie/Movie';
 import 'animate.css';
 
+import Box from '@mui/material/Box';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 import './index.css';
+import { allMovies } from './utils/constants';
 
 export const MoviesApp = () => {
-  const movies = [
-    {
-      adult: false,
-      backdrop_path: '/eeijXm3553xvuFbkPFkDG6CLCbQ.jpg',
-      genre_ids: [28, 12, 18, 878],
-      id: 438631,
-      original_language: 'en',
-      original_title: 'Dune',
-      overview:
-        "Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence-a commodity capable of unlocking humanity's greatest potential-only those who can conquer their fear will survive.",
-      popularity: 8870.667,
-      poster_path: '/d5NXSklXo0qyIYkgV94XAgMIckC.jpg',
-      release_date: '2021-09-15',
-      title: 'Dune',
-      video: false,
-      vote_average: 8.1,
-      vote_count: 2526,
-    },
-    {
-      adult: false,
-      backdrop_path: '/eeijXm3553xvuFbkPFkDG6CLCbQ.jpg',
-      genre_ids: [28, 12, 18, 878],
-      id: 438631,
-      original_language: 'en',
-      original_title: 'Dune',
-      overview:
-        "Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence-a commodity capable of unlocking humanity's greatest potential-only those who can conquer their fear will survive.",
-      popularity: 8870.667,
-      poster_path: '/d5NXSklXo0qyIYkgV94XAgMIckC.jpg',
-      release_date: '2021-09-15',
-      title: 'Dune',
-      video: false,
-      vote_average: 8.1,
-      vote_count: 2526,
-    },
-    {
-      adult: false,
-      backdrop_path: '/eeijXm3553xvuFbkPFkDG6CLCbQ.jpg',
-      genre_ids: [28, 12, 18, 878],
-      id: 438631,
-      original_language: 'en',
-      original_title: 'Dune',
-      overview:
-        "Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence-a commodity capable of unlocking humanity's greatest potential-only those who can conquer their fear will survive.",
-      popularity: 8870.667,
-      poster_path: '/d5NXSklXo0qyIYkgV94XAgMIckC.jpg',
-      release_date: '2021-09-15',
-      title: 'Dune',
-      video: false,
-      vote_average: 8.1,
-      vote_count: 2526,
-    },
-    {
-      adult: false,
-      backdrop_path: '/eeijXm3553xvuFbkPFkDG6CLCbQ.jpg',
-      genre_ids: [28, 12, 18, 878],
-      id: 438631,
-      original_language: 'en',
-      original_title: 'Dune',
-      overview:
-        "Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence-a commodity capable of unlocking humanity's greatest potential-only those who can conquer their fear will survive.",
-      popularity: 8870.667,
-      poster_path: '/d5NXSklXo0qyIYkgV94XAgMIckC.jpg',
-      release_date: '2021-09-15',
-      title: 'Dune',
-      video: false,
-      vote_average: 8.1,
-      vote_count: 2526,
-    },
-    {
-      adult: false,
-      backdrop_path: '/eeijXm3553xvuFbkPFkDG6CLCbQ.jpg',
-      genre_ids: [28, 12, 18, 878],
-      id: 438631,
-      original_language: 'en',
-      original_title: 'Dune',
-      overview:
-        "Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence-a commodity capable of unlocking humanity's greatest potential-only those who can conquer their fear will survive.",
-      popularity: 8870.667,
-      poster_path: '/d5NXSklXo0qyIYkgV94XAgMIckC.jpg',
-      release_date: '2021-09-15',
-      title: 'Dune',
-      video: false,
-      vote_average: 8.1,
-      vote_count: 2526,
-    },
-    {
-      adult: false,
-      backdrop_path: '/eeijXm3553xvuFbkPFkDG6CLCbQ.jpg',
-      genre_ids: [28, 12, 18, 878],
-      id: 438631,
-      original_language: 'en',
-      original_title: 'Dune',
-      overview:
-        "Paul Atreides, a brilliant and gifted young man born into a great destiny beyond his understanding, must travel to the most dangerous planet in the universe to ensure the future of his family and his people. As malevolent forces explode into conflict over the planet's exclusive supply of the most precious resource in existence-a commodity capable of unlocking humanity's greatest potential-only those who can conquer their fear will survive.",
-      popularity: 8870.667,
-      poster_path: '/d5NXSklXo0qyIYkgV94XAgMIckC.jpg',
-      release_date: '2021-09-15',
-      title: 'Dune',
-      video: false,
-      vote_average: 8.1,
-      vote_count: 2526,
-    },
-  ];
+  const [movies, setMovies] = useState([...allMovies]);
+
+  const [sort, setSort] = useState(0);
+
+  const handleChange = (event) => {
+    setSort(event.target.value);
+
+    if (event.target.value === 0) {
+      setMovies(allMovies);
+    }
+
+    if (event.target.value === 10) {
+      setMovies(
+        movies.sort((a, b) => {
+          if (a.vote_average > b.vote_average) {
+            return -1;
+          } else if (a.vote_average < b.vote_average) {
+            return 1;
+          } else {
+            return 0;
+          }
+        })
+      );
+    }
+
+    if (event.target.value === 20) {
+      setMovies(
+        movies.sort((a, b) => {
+          if (a.title < b.title) {
+            return -1;
+          } else if (a.title > b.title) {
+            return 1;
+          } else {
+            return 0;
+          }
+        })
+      );
+    }
+
+    if (event.target.value === 30) {
+      setMovies(
+        movies.sort((a, b) => {
+          if (a.title > b.title) {
+            return -1;
+          } else if (a.title < b.title) {
+            return 1;
+          } else {
+            return 0;
+          }
+        })
+      );
+    }
+  };
 
   return (
     <>
       <div className="animate__animated animate__fadeIn">
         <Header />
+        <Box
+          sx={{
+            minWidth: '90%',
+            backgroundColor: '#282828',
+            margin: 2,
+          }}
+        >
+          <FormControl fullWidth>
+            <Select value={sort} onChange={handleChange} className="sort-item">
+              <MenuItem value={0}>Select an order</MenuItem>
+              <MenuItem value={10}>Rating</MenuItem>
+              <MenuItem value={20}>A - Z</MenuItem>
+              <MenuItem value={30}>Z - A</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
         <div className="card">
           {movies.map((movie) => (
             <Movie
+              key={movie.id.toString()}
               title={movie.title}
               img={movie.backdrop_path}
               rating={movie.vote_average}
