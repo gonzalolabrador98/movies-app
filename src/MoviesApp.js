@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from './components/header/Header';
 import Movie from './components/movie/Movie';
 import 'animate.css';
@@ -9,26 +9,32 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import './index.css';
-import { allMovies } from './utils/constants';
+import { useFetchMovies } from './hook/useFetchMovies';
 
 export const MoviesApp = () => {
-  const [movies, setMovies] = useState([...allMovies]);
+  const data = useFetchMovies(true, 3);
+
+  const [movies, setMovies] = useState([]);
 
   const [sort, setSort] = useState(0);
+
+  useEffect(() => {
+    setMovies(data);
+  }, [data]);
 
   const handleChange = (event) => {
     setSort(event.target.value);
 
     if (event.target.value === 0) {
-      setMovies(allMovies);
+      setMovies(movies);
     }
 
     if (event.target.value === 10) {
       setMovies(
         movies.sort((a, b) => {
-          if (a.vote_average > b.vote_average) {
+          if (a.rating > b.rating) {
             return -1;
-          } else if (a.vote_average < b.vote_average) {
+          } else if (a.rating < b.rating) {
             return 1;
           } else {
             return 0;
@@ -86,16 +92,17 @@ export const MoviesApp = () => {
             </Select>
           </FormControl>
         </Box>
+
         <div className="card">
           {movies.map((movie) => (
             <Movie
               key={movie.id.toString()}
               title={movie.title}
-              img={movie.backdrop_path}
-              rating={movie.vote_average}
+              img={movie.img}
+              rating={movie.rating}
               overview={movie.overview}
-              votes={movie.vote_count}
-              release={movie.release_date}
+              votes={movie.votes}
+              release={movie.release}
             />
           ))}
         </div>

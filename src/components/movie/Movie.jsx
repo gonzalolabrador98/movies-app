@@ -28,7 +28,6 @@ export default function Movie({
   return (
     <>
       <Card
-        onClick={handleOpen}
         sx={{
           boxShadow: 'none',
           backgroundColor: 'transparent',
@@ -38,11 +37,17 @@ export default function Movie({
         }}
       >
         <div
-          style={{ margin: 8, backgroundColor: '#282828', borderRadius: 10 }}
+          onClick={handleOpen}
+          style={{
+            margin: 8,
+            backgroundColor: '#282828',
+            borderRadius: 10,
+            cursor: 'pointer',
+          }}
         >
           <CardMedia
             component="img"
-            alt="green iguana"
+            alt={title}
             height="200"
             image={`${urlImg}${img}`}
           />
