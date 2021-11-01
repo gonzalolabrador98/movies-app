@@ -7,12 +7,22 @@ import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 import './index.css';
 import { useFetchMovies } from './hook/useFetchMovies';
 
 export const MoviesApp = () => {
-  const data = useFetchMovies(true, 3);
+  const [fistTime, setFistTime] = useState(true);
+
+  const [page, setPage] = useState(3);
+
+  const data = useFetchMovies(fistTime, page);
+
+  const fetchMoreData = () => {
+    setFistTime(false);
+    setPage(page + 1);
+  };
 
   const [movies, setMovies] = useState([]);
 
@@ -92,20 +102,26 @@ export const MoviesApp = () => {
             </Select>
           </FormControl>
         </Box>
-
-        <div className="card">
-          {movies.map((movie) => (
-            <Movie
-              key={movie.id.toString()}
-              title={movie.title}
-              img={movie.img}
-              rating={movie.rating}
-              overview={movie.overview}
-              votes={movie.votes}
-              release={movie.release}
-            />
-          ))}
-        </div>
+        <InfiniteScroll
+          hasMore
+          loader={<h4>Loading...</h4>}
+          next={fetchMoreData}
+          dataLength={movies.length}
+        >
+          <div className="card">
+            {movies.map((movie) => (
+              <Movie
+                key={movie.id.toString()}
+                title={movie.title}
+                img={movie.img}
+                rating={movie.rating}
+                overview={movie.overview}
+                votes={movie.votes}
+                release={movie.release}
+              />
+            ))}
+          </div>
+        </InfiniteScroll>
       </div>
     </>
   );
