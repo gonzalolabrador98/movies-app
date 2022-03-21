@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from './components/header/Header';
 import Movie from './components/movie/Movie';
-import 'animate.css';
-
+import { useFetchMovies } from './hook/useFetchMovies';
 import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
 import './index.css';
-import { useFetchMovies } from './hook/useFetchMovies';
+import 'animate.css';
 
 export const MoviesApp = () => {
   const [fistTime, setFistTime] = useState(true);

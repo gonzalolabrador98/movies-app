@@ -21,9 +21,7 @@ export default function Movie({
 
   const [open, setOpen] = React.useState(false);
 
-  const handleClose = () => setOpen(false);
-
-  const handleOpen = () => setOpen(true);
+  const handleToggle = () => setOpen(!open);
 
   return (
     <>
@@ -37,7 +35,7 @@ export default function Movie({
         }}
       >
         <div
-          onClick={handleOpen}
+          onClick={handleToggle}
           style={{
             margin: 8,
             backgroundColor: '#282828',
@@ -74,7 +72,7 @@ export default function Movie({
       </Card>
       <Modal
         open={open}
-        onClose={handleClose}
+        onClose={handleToggle}
         overview={overview}
         title={title}
         release={release}
